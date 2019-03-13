@@ -345,6 +345,34 @@ body.impress-mouse-timeout {
 /*
     Styles for specific slides.
 */
+#lifecycle-img {
+  background-image: url(../images/lifecycle.png);
+  background-size: cover;
+  height: 400px;
+}
+
+#resetcheckout-img {
+  height: 500px;  
+}
+
+.smol-code {
+  font-size: 17px;
+}
+
+.note {
+  background-color: #ccff15;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 10px;
+}
+
+figcaption {
+  font-style: italicsemibold;
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: solid 2px black;
+}
 
 /*
     And as the last thing there is a workaround for quite strange bug.

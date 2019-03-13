@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Linux + Git thing-a-thong</title>
+  <title>Git thing-a-thong</title>
   <meta name="description" content="description here"/>
   <meta name="author" content="jasonAsmk" />
   <link rel="stylesheet" href="./css/classic-slides.css">
@@ -19,13 +19,371 @@
 </div>
 
 <div id="impress" data-transition-duration="1000">
+  <!-- slide 1 -->
   <div class="step slide title" data-x="0" data-y="0">
-    <h1>title here</h1>
+    <h1>Git git git git git git git git</h1>
     <div class="notes">presenter's notes</div>
   </div>
-  <div class="step slide" data-x="3000" data-y="0">
-    <h1>continuing</h1>
+
+  <!-- slide 2 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Starting with Git</h1>
+    <p>Let me show you first my terminal workflow.<sup>who<sup>needs<sup>sourcetree <sup>anyways???</sup></sup></sup></sup></p>
     <div class="notes">presenter's notes</div>
+  </div>
+
+  <!-- slide 3 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Baby Basics</h1>
+    <h2>Things that everyone knows</h2>
+    <p>
+      <ul>
+        <li><pre><code>git init</code></pre></li> 
+        <li><pre><code>git branch -l</code></pre></li>
+        <li><pre><code>git checkout branchname</code></pre></li>
+        <li><pre><code>git checkout -b newbranchname</code></pre></li>
+        <li><pre><code>git pull</code></pre></li> 
+      </ul>
+    </p>
+    <div class="notes">git init creates a subdirectory named .git that contains all necessary repository files and at this point nothing is tracked yet
+    </div>
+  </div>
+
+  <!-- slide 4 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>...and the list goes on</h2>
+    <p>
+      <ul>
+        <li><pre><code>git push</code></pre></li>
+        <li><pre><code>git clone https://github.com/awesomerepo/bestjs tomato</code></pre></li>
+        <li><pre><code>git fetch</code></pre></li>
+        <li><pre><code>git add somefile.txt</code></pre></li>
+        <li><pre><code>git status</code></pre></li>
+      </ul>
+    </p>
+    <div class="notes">Note that git clone makes a distinction between https and git protocol. git fetch, fetches tags and branches from a remote, by default origin, good for autocompletion!</div>
+  </div>
+
+  <!-- slide 5 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Status of a file</h1>
+    <img id="lifecycle-img" src="./images/lifecycle.png">
+    <div class="notes">Files can be tracked or untracked by git. Staging is the area where files are about to be committed.</div>
+  </div>
+  
+  <!-- slide 6-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Three trees</h1>
+    <img src="./images/reset-workflow.png"></img>
+    <div class="notes">Head is the last commit snapshot and soon next parent. Index is the proposed next commit snapshot also known as staging area. WD is your sandbox, which is the actual files while the other two reside in .git .
+    Git checkout just moves HEAD around, while git reset also moves the branch that head points to. If it doesn't point at a branch that won't happen.Soft reset, undoes a commit and will keep changes in index and wd, mixed reset will undo the commit and put the changes in WD only, hard will not keep the changes
+    </div>
+  </div>
+
+  <!-- slide 7-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>Bonus level: reset and checkout are context specific!</h2>
+    <img id="resetcheckout-img" src="./images/resetcheckoutdiff.png"></img>
+  </div>
+
+  <!--slide 8 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>On a sunny day</h2>
+    <pre class="smol-code"><code>
+➜  Ionic2 git:(feature/XPA3360-changeScanBizCardButton) git status
+On branch feature/XPA3360-changeScanBizCardButton
+Your branch is up to date with 'origin/feature/XPA3360-changeScanBizCardButton'.
+
+nothing to commit, working tree clean
+    </code></pre>
+  </div>
+
+  <!-- slide 9 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <pre class="smol-code"><code>
+    ➜  Ionic2 git:(feature/XPA3360-changeScanBizCardButton) ✗ git status
+On branch feature/XPA3360-changeScanBizCardButton
+Your branch is behind 'origin/feature/XPA3360-changeScanBizCardButton' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   src/contacts/components/contact-details-editor/contact-details-editor.html
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   src/contacts/components/contact-details-editor/contact-details-editor.scss
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        poggers.txt
+    </code></pre>
+    <div class="notes">Here the html file is ready to be commited, the scss is just modified and there's a new untracked file. Explain how to move these around. Maybe do an example.</div>
+  </div>
+
+  <!-- slide 10 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>What's the status when there are merge conflicts?</h2>
+    <pre class="smol-code"><code>
+➜  Ionic2 git:(feature/XPA3360-changeScanBizCardButton) git pull
+Auto-merging src/contacts/components/contact-details-editor/contact-details-editor.html
+CONFLICT (content): Merge conflict in src/contacts/components/contact-details-editor/contact-details-editor.html
+Automatic merge failed; fix conflicts and then commit the result.
+➜  Ionic2 git:(feature/XPA3360-changeScanBizCardButton) ✗ git status
+On branch feature/XPA3360-changeScanBizCardButton
+Your branch and 'origin/feature/XPA3360-changeScanBizCardButton' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+
+        modified:   src/contacts/components/contact-details-editor/contact-details-editor.scss
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   src/contacts/components/contact-details-editor/contact-details-editor.html
+    </code></pre>
+    <div class="notes"></div>
+  </div>
+
+  <!-- slide 11 -->
+  <div class="step slide" data-rel-x="00" data-rel-y="3000">
+    <h2>How does a merge conflict looks in a real editor?</h2>
+    <pre class="smol-code"><code>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    &lt;button *ngIf="isNewContact" ion-button icon-top clear class="button-scan" (cvOnlineClick)="scanBusinessCard()" offlineMsg="{{ 'scan.' | translate }}"&gt;
+      &lt;span class="free-dots-if-large"&gt;{{ rescan ? ('Rescan' | translate) : ('Scan' | translate) }}&lt;/span&gt;
+    &lt;/button&gt;
+||||||| merged common ancestors
+
+    &lt;div class="one-third-flex-container"&gt;
+      &lt;button *ngIf="isNewContact" ion-button icon-top clear class="button-scan" (cvOnlineClick)="scanBusinessCard()" offlineMsg="{{ 'scan.' | translate }}"&gt;
+        &lt;ion-icon class="icon-scan-biz-card"&gt;&lt;/ion-icon&gt;
+        &lt;span class="three-dots-if-large"&gt;{{ rescan ? ('Rescan' | translate) : ('Scan' | translate) }}&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+=======
+    &lt;button *ngIf="isNewContact" ion-button icon-top clear class="button-scan" (cvOnlineClick)="scanBusinessCard()" offlineMsg="{{ 'scan.' | translate }}"&gt;
+      &lt;ion-icon class="icon-scan-biz-card"&gt;&lt;/ion-icon&gt;
+      &lt;span class="three-dots-if-large"&gt;{{ rescan ? ('Rescan' | translate) : ('Scan' | translate) }}&lt;/span&gt;
+    &lt;/button&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;bccc1d63acc5b2de2107691e32c010aa30ab4f9e
+    </code></pre>
+    <div class="notes">Pro tip: if you edit this file and save it, and stage it, it's the same as doing that in your fancy editor! Adding the file with git add marks as resolved.</div>
+  </div>
+
+  <!-- slide 12 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="-3000">
+    <h1>Diffing stuff</h1>
+    <p><pre><code>git diff &lt;commit&gt; &lt;commit&gt; [pathspec] </code></pre></p>
+    <p><pre class="smol-code"><code>
+$ git diff                 (1)
+$ git diff test            (2)
+$ git diff HEAD -- ./test  (3)
+$ git diff HEAD^ HEAD      (4)
+$ git diff bccc1d5 ae33f51 (5)
+    </code></pre></p>
+    <div class="notes">The first commit is the base to which the second commit is compared. Path is optional but can restrain a diff to a file.
+      1: compare working changes with current branch
+      2: same but for another branch
+      3: compare with the tip of the current branch and limit to file test
+      4: compare second to last commit with last commit
+      5: compare two commit by hashes
+
+      Do a demo on terminal.
+    </div>
+  </div>
+
+  <!--slide 13-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <p class="note">
+    Note on ^ and ~ notation:
+    The ^<n> format allows you to select the nth parent of the commit (relevant in merges). The ~<n> format allows you to select the nth ancestor commit, always following the first parent.
+    <img src="./images/relativerefs.svg"></img>
+    <br/>More info here -&gt; <a>https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-rev-parse.html</a>
+    </p>
+  </div>
+
+  <!--slide 14 -->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Logging</h1>
+    <pre><code>git log</code></pre>
+    <pre><code>git log --graph</code></pre>
+    <p>Not as good as a GUI tool, is kinda...meh, but very customizable.</p>
+    <div class="notes">Show some examples</div>
+  </div>
+
+  <!--slide 15 -->
+  <div class="step slide" data-rel-x="0" data-rel-y="3000" data-rotate="180">
+    <h1>When things go wrong...</h1>
+    <p>Sometimes you might find yourself in a mess. Undoing things should be done carefully in a case-by-case manner. With git on terminal it's easier to do mistakes but it's also easier to fix them.</p>
+    <div class="notes"></div>
+  </div>
+
+  <!--slide 16 -->
+  <div class="step slide" data-rel-x="0" data-rel-y="3000" data-rotate="180">
+    <h1>Exhibit no 1</h1>
+    <p>You commit something you shouldn't have. Let's assume it's the last commit. Pretty much straight forward all you need to do is <s>pray</s></p>
+    <pre><code>git reset HEAD~1</code></pre>
+    <p class="note">Note: reset has variants, one is really dangerous!</p>
+    <img src="./images/movements.jpg">
+    <div class="notes"></div>
+  </div>
+
+  <!--slide 17 -->
+  <div class="step slide" data-rel-x="0" data-rel-y="3000" data-rotate="180">
+    <h1>Exhibit no 2</h1>
+    <p>You need to delete or alter a group of commits from days or months ago. Interactive rebase or cherry-pitting or checking out the commit before the group to-be-deleted and cherry-picking are your only friends.</p>
+    <p>Cherry-pit is the reverse of the cherry pick, in that you exclude commit using <pre><code>git rebase -p --onto SHA^ SHA</code</pre></p>
+    <div class="note">This dude here knows what's up <a>https://sethrobertson.github.io/GitFixUm/fixup.html</a></div>
+    <div class="notes">SHA^ refers to the commit to be deleted, the cherry pit does not work if there are merge commits in between.</div>
+  </div>
+
+  <!--slide 18 -->
+  <div class="step slide" data-rel-x="0" data-rel-y="3000" data-rotate="180">
+    <h1>Exhibit no 3</h1>
+    <p>Last few git operations were desperate and destructive OH MY GAWD HELP ME. Don't panic. Reflog to the rescue.</p>
+    <pre><code>
+git reflog
+git checkout mybranch
+git checkout SHA_FROM_REFLOG
+</code></pre>
+    <p>Git keeps track of the operations you did and 'somehow' in 'someway' commits them so you can revert back. But I believe reflogs don't last forever.</p>
+    <div class="notes">Show a reflog to the people. Mention the fact that many other approaches are available but generally a good knowledge of what you're doing is needed.</div>
+  </div>
+
+  <!--slide 19-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="-12000">
+    <h1>Reeee</h1>
+    <figure><img src="./images/peperee.jpg"><figcaption>A vibrant expression of internal turmoil. According to the urban dictionary: The battle cry for outsiders on the internet when they want the Normies to leave. </figcaption></figure>
+    <pre class="substep"><code>git rerere</code></pre>
+  </div>
+
+
+  <!--slide 20-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>A rerere scenario</h2>
+    <pre class="smol-code"><code>
+              o---*---o---+---o---o---o---*---+---o topic
+             /           /                   /     \
+    o---o---o---*---o---o---o---*---o---o---o---o---+ master
+    </code></pre>
+    <p>
+    * : changed/touched common files<br/>
+    + : merging
+    </p>
+    <p>The PR dude might asks asks to drop all these merges to keep the history clean. So we do that, and when we open a PR we have to redo all these merge conflicts we did before!</p>
+  </div>
+
+  <!--slide 21-->
+  <div class="step slide" data-rel-x ="3000" data-rel-y="0">
+    <h2>rerere to the rererescue</h2>
+    <ul>
+      <li>call <code>git rerere</code> when you have conflicts, but before resolving</li>
+      <li>call <code>git rerere</code> when you have resolved the conflicts</li>
+      <li>rerere rereremembers the resolution and can replay it when you need it</li>
+    </ul>
+    <div class="note">For convenience, <code>git merge</code> does this automatically. The rerere info is also used in <code>git commit</code> and <code>git rebase</code></div>
+  </div>
+
+  <!--slide 22-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1><code>git revert</code></h1>
+    <p>Reverting undoes a commit by creating a new commit. The new commit is the invertion of the target commit. This is safe way undo something without risking messing the history or other people's work.</p>
+    <div class="notes">Try reverting something for a demo</div>
+  </div>
+
+  <!--slide 23-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Refs</h1>
+    <h2>Hashes</h2>
+    <p>How to get a commit SHA-1 pointed by a tag or branch? <code class="substep">git rev-parse</code></p>
+    <h2>What is a Ref</h2>
+    <p>It's an indirect way of referring to a commit. Stored in <code>.git/refs</code></p>
+   
+    <div class="notes">Creating a branch is lighting fast because it's actually writing a commit SHA to a ref file. When you move a branch, you're actually writing a new hash in its' Ref.</div>
+  </div>
+
+  <!--slide 24-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>Special Refs</h2>
+    <ul>
+      <li>HEAD - Currently checkout-out commit/branch</li>
+      <li>FETCH_HEAD - Most recently fetched branch</li>
+      <li>ORIG_HEAD - Backup reference to HEAD before drastic changes</li>
+      <li>MERGE_HEAD - Commits that you're merging into the current branch with <code>git merge</code></li>
+      <li>CHERRY_PICK_HEAD - Commit you're cherry picking</li>
+    </ul>
+    <div class="notes">the HEAD ref is located in .git/HEAD and contains a symbolic reference to another ref</div>
+  </div>
+
+  <!--slide 25-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>Refspecs</h2>
+    <p>Syntax: <code>[+]&lt;src&gt;:&lt;dst&gt;</code> <br/> Makes it possible to manage remote branches using local git commands.</p>
+    <p>Example: Delete remote branch<br/><code>git push origin :some-feature</code></p>
+    <p>Example: Push master with another name<br/><code>git push origin master:refs/heads/my-master</code></p>
+    <div class="notes">A refspec is a mapping from a local branch to a remote branch. The + sign is optional and it forces the remote repo to perform a non-fast-forward update. Aside from the examples above, usecases are very rare and specific.</div>
+  </div>
+
+  <!--slide 26-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Can I push from my pc to another?</h1>
+    <p>Sure you can!<br/>
+    <pre><code>
+git remote add foobar username@hostname/path/to/repo.git
+git pull foobar master
+git push foobar
+    </code></pre></p>
+    <div class="notes">By default commands work with origin. But you can set tracking branches to "look" at a specific remote. You can list remotes with git ls-remote or git remote show [remote]</div>
+  </div>
+
+  <!--slide 27-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Custom git commands</h1>
+    <p>You can make your own git commands by writing them in your <code>.gitconfig</code> file under the alias section</p>
+    <pre><code>
+[alias]
+  graph = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+  graphgraph = !"git lg2-specific --all"
+
+  springclean = "!f() { git fetch -p &amp;&amp; for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done }; f"
+
+  oldest-ancestor = !zsh -c 'diff -u &lt;(git rev-list --first-parent "${1:-master}") &lt;(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -   
+    </code></pre>
+    <div class="notes">These snippets you can make or find around the internet and keep what you need.</div>
+  </div>
+
+  <!--slide X-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h1>Questions?</h1>
+  </div>
+
+  <!--slide Y-->
+  <div class="step slide" data-rel-x="3000" data-rel-y="0">
+    <h2>References</h1>
+    <ul>
+      <li>Git book [<a>https://git-scm.com/book/en/v2</a>]</li>
+      <li>Attlasian bitbucket docs [<a>https://www.atlassian.com/git/tutorials</a>]</li>
+      <li>Git man pages</li>
+    </ul>
+    <h2>Thanks to</h2>
+    <ul>
+      <li>Unknown artist for gif background</li>
+      <li>Meme community for pepe ree picture</li>
+      <li>Gitbook for the status lifecycle picture and atlassian for refs picture</li>
+      <li>Impress js for this awesome framework</li>
+      <li>Anyone else I might have forgotten &#x2665;</li>
+    </ul>
   </div>
 </div>
 
